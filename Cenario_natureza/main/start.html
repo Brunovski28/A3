@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://aframe.io/releases/1.1.0/aframe.min.js"></script>
+    <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v3.13.1/dist/aframe-extras.min.js"></script>
+    <script src="scripts/luzes-eventos.js"></script>
+    <script src="scripts/tree-generator.js"></script>
+</head>
+
+<body>
+
+        <!-- Objetos e imagens -->
+        <a-assets>
+            <img crossorigin="anonymous" id="background" src="/ComputacaoGrafica/jogo-casa-inteligente-original-main/assets/background.jpg" />
+            <img id="moonTexture" src="/ComputacaoGrafica/jogo-casa-inteligente-original-main/assets/lua.jpg" crossorigin="anonymous" />
+
+            <img crossorigin="anonymous" id="groundTexture" src="https://cdn.aframe.io/a-painter/images/floor.jpg">
+            <img crossorigin="anonymous" id="skyTexture" src="https://cdn.aframe.io/a-painter/images/sky.jpg">
+
+            <a-asset-item id="Cavalo-model" src="/ComputacaoGrafica/jogo-casa-inteligente-original-main/assets/Cavalo.glb"></a-asset-item>
+            <a-asset-item id="Celeiro-model" src="/ComputacaoGrafica/jogo-casa-inteligente-original-main/assets/Celeiro.glb"></a-asset-item>
+            <a-asset-item id="chao_laranja" src="/ComputacaoGrafica/jogo-casa-inteligente-original-main/assets/chao_laranja.glb"></a-asset-item>
+            <a-asset-item id="cerca" src="/ComputacaoGrafica/jogo-casa-inteligente-original-main/assets/cerca.glb"></a-asset-item>
+            <a-asset-item id="tratorFuturista" src="/ComputacaoGrafica/jogo-casa-inteligente-original-main/assets/scifi_tractor-opt.glb"></a-asset-item>
+            
+            
+            <a-asset-items id="treeModel1" src="/ComputacaoGrafica/jogo-casa-inteligente-original-main/assets/tree_1.glb"></a-asset-items>
+            <a-asset-items id="treeModel2" src="/ComputacaoGrafica/jogo-casa-inteligente-original-main/assets/arvore_2_com_textura.glb"></a-asset-items>
+
+            <a-asset-items id="milho" src="/ComputacaoGrafica/jogo-casa-inteligente-original-main/assets/corn_patch-opt.glb"></a-asset-items>
+
+            <a-asset-items id="barril" src="/ComputacaoGrafica/jogo-casa-inteligente-original-main/assets/barrel-opt.glb"></a-asset-items>
+
+            <a-asset-items id="matagal" src="/ComputacaoGrafica/jogo-casa-inteligente-original-main/assets/stylized_plants-opt.glb"></a-asset-items>
+
+            <a-asset-items id="galinha" src="/ComputacaoGrafica/jogo-casa-inteligente-original-main/assets/chicken-opt.glb"></a-asset-items>
+
+            <a-asset-items id="porco" src="/ComputacaoGrafica/jogo-casa-inteligente-original-main/assets/pig.glb"></a-asset-items>
+
+            <a-asset-items id="machado" src="/ComputacaoGrafica/jogo-casa-inteligente-original-main/assets/axe_with_leather_wrap-opt.glb"></a-asset-items>
+
+            <!--a-entity id="tree-template" gltf-model="#treeModel1"></a-entity>
+            <a-entity id="tree-template" gltf-model="#treeModel2"></a-entity-->
+
+        </a-assets>
+
+    <a-scene id="scene" luzes fog="type: linear; color: #AAA; near: 1; far: 1000;" shadow="type: pcfsoft">
+
+        <a-light type="ambient" color="#888" intensity="0.2"></a-light>
+
+        <!-- Árvores -->
+        <a-entity tree-generator="quantityTree: 10; columns: 10; posAltX: 1; posAltY: 2;"></a-entity>
+        <a-entity id="env" environment></a-entity>
+
+        <!-- Camera -->
+        <a-entity class="player" id="player" position="1 2 4" 
+            camera look-controls wasd-controls>
+        </a-entity>
+
+
+        <!-- Backgroud -->
+        <a-sky src="#background"></a-sky>
+        
+        <!-- Lua -->
+        <a-sphere id="moon" position="-50 40 -100" radius="5"
+            material="src: #moonTexture; emissive: #fff; emissiveIntensity: 0.5"></a-sphere>
+        <a-light type="directional" position="-50 40 -100" target="#center" intensity="0.3" color="#e0e0ff"
+            castShadow="true"></a-light>
+        <a-entity id="center" position="0 0 0"></a-entity>
+      
+        <!-- Árvores -->
+        
+
+        <!-- Cenário de montanhas -->
+        <a-sky height="2048" radius="150" src="#skyTexture" theta-length="90" width="2048" segments-height="5" segments-width="8"></a-sky>
+        
+        
+        
+        <a-light type="directional" intensity="0.9" position="-1 -2  2"></a-light>
+        <a-light type="directional" intensity="1.0" position=" 2  1 -1"></a-light>
+
+         <!-- Terreno com jardim -->
+         <a-entity id="jardim" position="10 0 0">
+            <a-plane static-body position="0 -0.01 0" rotation="-90 0 0" width="320" height="320"
+                material="src: /ComputacaoGrafica/jogo-casa-inteligente-original-main/assets/grama.jpg; repeat: 100 100; roughness: 1"></a-plane>
+
+                <!-- Milhos -->
+                <a-entity class="milhos" position="18 0 -58" scale="2 2 2" gltf-model="#milho"></a-entity>
+                <a-entity class="milhos" position="18 0 -41" scale="2 2 2" gltf-model="#milho"></a-entity>
+                <a-entity class="milhos" position="18 0 -24" scale="2 2 2" gltf-model="#milho"></a-entity>
+                <a-entity class="milhos" position="18 0 -7" scale="2 2 2" gltf-model="#milho"></a-entity>
+                <a-entity class="milhos" position="18 0 10" scale="2 2 2" gltf-model="#milho"></a-entity>
+                <a-entity class="milhos" position="18 0 27" scale="2 2 2" gltf-model="#milho"></a-entity>
+                <a-entity class="milhos" position="18 0 44" scale="2 2 2" gltf-model="#milho"></a-entity>
+                <a-entity class="milhos" position="18 0 61" scale="2 2 2" gltf-model="#milho"></a-entity>
+
+                
+                <a-entity class="milhos" position="-60 0 -58" scale="2 2 2" gltf-model="#milho"></a-entity>
+                <a-entity class="milhos" position="-60 0 -41" scale="2 2 2" gltf-model="#milho"></a-entity>
+                <a-entity class="milhos" position="-60 0 -24" scale="2 2 2" gltf-model="#milho"></a-entity>
+                <a-entity class="milhos" position="-60 0 -7" scale="2 2 2" gltf-model="#milho"></a-entity>
+                <a-entity class="milhos" position="-60 0 10" scale="2 2 2" gltf-model="#milho"></a-entity>
+                <a-entity class="milhos" position="-60 0 27" scale="2 2 2" gltf-model="#milho"></a-entity>
+                <a-entity class="milhos" position="-60 0 44" scale="2 2 2" gltf-model="#milho"></a-entity>
+                <a-entity class="milhos" position="-60 0 61" scale="2 2 2" gltf-model="#milho"></a-entity>
+
+                <!-- Barril e o machado -->
+                <a-entity class="barril" position="-13.5 0 6" scale="1.3 1.3 1.3" gltf-model="#barril"></a-entity>                
+                <a-entity class="axe" position="-12.7 1.5 5.8" scale="20 20 20" gltf-model="#machado" rotation="90 290 0"></a-entity>                
+
+                <!-- Galinha -->
+                <a-entity class="galinha" position="-25 0 -20" scale="30 30 30" gltf-model="#galinha" rotation="0 57 0"></a-entity>
+                <a-entity class="galinha" position="-20 4.15 -10" scale="30 30 30" gltf-model="#galinha" rotation="0 45 0"></a-entity>
+
+                <!-- Porquinhos -->
+                <a-entity class="pig" position="-18 0 13" scale="30 30 30" gltf-model="#porco" rotation="0 150 0"></a-entity>
+                <a-entity class="pig" position="-24 0 23" scale="30 30 30" gltf-model="#porco" rotation="0 180 0"></a-entity>
+
+                <!-- Chão de terra -->
+                <a-entity class="chao_terra" position="-10 -0.1 0" scale="0.01 0.2 0.5" gltf-model="#chao_laranja"></a-entity>
+                <a-entity class="chao_terra" position="-13 -0.1 1.45" scale="0.015 0.2 0.005" gltf-model="#chao_laranja"></a-entity>
+ 
+                <!-- Cerca rente ao celeiro -->
+                <a-entity class="cerca" position="-19 -0.1 180" scale="1 0.15 0.05" rotation="0 90 0" gltf-model="#cerca"></a-entity>
+                <a-entity class="cerca" position="-19 -0.1 110" scale="1 0.15 0.05" rotation="0 90 0" gltf-model="#cerca"></a-entity>
+
+                <!-- Trator futurista -->
+                <a-entity class="tratorF" position="-21 0 -11" scale="1 1 1" rotation="0 -40 0" gltf-model="#tratorFuturista"></a-entity>
+
+                    <!-- fora -->
+                    <a-entity class="Cavalo-asset" scale="0.8 0.8 0.8" rotation="0 90 0" position="-13.5 0 -4"
+                        gltf-model="#Cavalo-model"> </a-entity>
+                    <a-entity class="Celeiro-asset" scale="5 5 5 " rotation="0 90 0" position="-25 0 2"
+                        gltf-model="#Celeiro-model"> </a-entity>
+
+                </a-entity>
+
+            </a-entity>
+        </a-entity>
+    </a-scene>
+    <script>
+        AFRAME.registerComponent('elevation-controls', {
+            init: function () {
+                window.addEventListener('keydown', this.onKeyDown.bind(this));
+            },
+            onKeyDown: function (event) {
+                let position = this.el.getAttribute('position');
+                switch (event.code) {
+                    case 'KeyC':
+                        position.y += 1;
+                        break;
+                    case 'KeyX':
+                        position.y -= 1;
+                        break;
+                }
+                this.el.setAttribute('position', position);
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelector('#player').setAttribute('elevation-controls', '');
+        });
+    </script>
+
+</body>
+
+</html>
